@@ -1,0 +1,58 @@
+//
+//  ContentView.swift
+//  BullsUI
+//
+//  Created by kourosh on 08/07/1401 AP.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    
+    @State var val: Double = 0
+    @State var hs: Int = 0
+    @State var level: Int = 0
+    @State var displayText: String = "Enter some text"
+    var body: some View {
+        NavigationView {
+            VStack{
+                HStack{
+                    Text("Highscore  (\(hs))")
+                        .padding()
+                        .padding()
+                    Text("Level  (\(level))")
+                }
+                .padding()
+                Text("\(val)")
+                    .padding()
+                Slider(value: $val, in: 10...100)
+                Button("Check") {
+                    var n = Int.random(in: 1...99)
+                    if (Int(val) - n < 10)
+                    {
+                        
+                        level += 1
+                        hs = level
+                        displayText = "win"
+                        
+                    } else {
+                        displayText = "loss"
+                        level = 0
+                    }
+                }
+                TextField("Display Text Field", text: $displayText)
+            }
+            .navigationTitle("Random")
+                .multilineTextAlignment(.center)
+            
+        }
+        
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .previewDevice("iPhone 13")
+    }
+}
